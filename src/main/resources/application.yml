@@ -5,9 +5,9 @@ server:
 spring:
   datasource:
     username: root
-    password: wang44
+    password: zhst1234
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3308/hostpital?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+    url: jdbc:mysql://172.16.3.186:3307/hostpital?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
 mybatis:
   configuration:
     map-underscore-to-camel-case: true
