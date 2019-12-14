@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>支付测试</title>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js" ></script>
+</head>
+<body>
+<h2>微信公众号支付测试页面-pages/index.jsp修改1</h2>
+<pre></pre>
+<button class="btn btn-default base-btn btn-exit" id="payBtn" style="width:94%;margin-left:3%;">点击支付</button>
+
+
+<script type="text/javascript">
+
+    // var request = new UrlSearch(); // 实例化
+    // var code = request.code;
+    // var appId;
+    // var timeStamp;
+    // var nonceStr;
+    // var wx_package;
+    // var signType;
+    // var paySign;
+    // $.ajax({
+    //     url : 'http://wechat/payment/wxPublicPay?code=' + code,
+    //     type : 'post',
+    //     dataType : 'json',
+    //     contentType : 'application/json; charset=utf-8',
+    //     async : false,
+    //     success : function(data) {
+    //         var data = data;
+    //         appId = data.content.appId;
+    //         timeStamp = data.content.timeStamp;
+    //         nonceStr = data.content.nonceStr;
+    //         wx_package = data.content.wx_package;
+    //         paySign = data.content.paySign;
+    //     }
+    // });
+
+    function onBridgeReady(){
+        alert("公众号支付测试页面---进入支付方法");
+        WeixinJSBridge.invoke(
+            'getBrandWCPayRequest', {
+                "appId" : '[[${appId}]]',     //公众号名称，由商户传入
+                "timeStamp": '[[ ${timeStamp}]]',          //时间戳，自1970年以来的秒数
+                "nonceStr" : '[[${nonceStr}]]', //随机串
+                "package" : '[[${package}]]',
+                "signType" : 'MD5',         //微信签名方式：
+                "paySign" : '[[${paySign}]]' //微信签名
+            },
+            function (res) {
+                alert(res.err_msg);
+                // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。
+                if((res.err_msg).indexOf("ok") >= 0) {
+                    alert("支付测试成功！");
+                } else {
+                    alert("支付失败！");
+                }
+            }
+        );
+    }
+
+    // 立即支付按钮事件
+    function pay() {
+        if (typeof WeixinJSBridge == "undefined"){
+            if( document.addEventListener ){
+                document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+            }else if (document.attachEvent){
+                document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+                document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+            }
+        }else{
+            onBridgeReady();
+        }
+    }
+
+    // 点击支付按钮事件
+    $("#payBtn").click(function(){
+        pay();
+    });
+</script>
+
+</body>
+</html>
