@@ -1,0 +1,8 @@
+.idea/
+target/
+*.iml
+*.war
+log/
+/src/test/
+*.yml
+
