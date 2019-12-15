@@ -13,8 +13,8 @@ import java.util.List;
 public interface RegistrationMapper {
 
     @Insert("insert into registration(openid,name,sex,age,docter_id,docter_subject_id," +
-            "is_comment,status) values (#{openid},#{name}," +
-            "#{sex},#{age},#{docterId},#{docterSubjectId},#{isComment},#{status})")
+            "is_comment,status,description,phone) values (#{openid},#{name}," +
+            "#{sex},#{age},#{docterId},#{docterSubjectId},#{isComment},#{status},#{description},#{phone})")
     public int insertRegistration(Registration registration);
 
     @Update("<script> " +
