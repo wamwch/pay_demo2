@@ -5,16 +5,9 @@ server:
 spring:
   datasource:
     username: root
-    password: zhst1234
+    password: wang44
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://172.16.3.186:3307/hostipital?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
-
-  mvc:
-    static-path-pattern: /**
-
-    resources:
-      static-locations: classpath:/static/
-
+    url: jdbc:mysql://127.0.0.1:3308/hostpital?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
 mybatis:
   configuration:
     map-underscore-to-camel-case: true

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>挂号信息</title>
+
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-hover" >
+                <tr>
+                    <th>预约号</th>
+                    <th>姓名</th>
+                    <th>性别</th>
+                    <th>年龄</th>
+                    <th>科室</th>
+                    <th>医生</th>
+                    <th>状态</th>
+                    <th>描述</th>
+                    <th>评论</th>
+
+                </tr>
+                <tr th:each="registration:${registrations}">
+                    <td th:text="${registration.id}"></td>
+                    <td th:text="${registration.name}"></td>
+                    <td th:text="${registration.sex}"></td>
+                    <td th:text="${registration.age}" ></td>
+                    <td th:text="${registration.docterSubjectId}" ></td>
+                    <td th:text="${registration.docterId}" ></td>
+                    <td th:text="${registration.status}" ></td>
+                    <td th:text="${registration.description}" ></td>
+                    <td th:text="${registration.isComment}" ></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

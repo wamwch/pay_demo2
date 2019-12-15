@@ -6,7 +6,7 @@ import java.util.List;
 
 @Data
 public class Subject {
-    private int id;
+    private String id;
 
     private String subjectName;
 

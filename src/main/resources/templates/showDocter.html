@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>医生信息</title>   <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <br>
+        <form class="form-inline my-2 my-lg-0 col-md-offset-8" method="post" action="/shopping/docter/toDocter">
+            <label for="search">医生查询：</label>
+            <input class="form-control mr-sm-2" id="search" name="docterName" type="search" placeholder="请输入医生姓名：" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">查询</button>
+        </form>
+        <br>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-hover" >
+                <tr>
+                    <th>姓名</th>
+                    <th>电话</th>
+                    <th>科室</th>
+
+                </tr>
+                <tr th:each="docter:${docters}">
+                    <td th:text="${docter.docterName}"></td>
+                    <td th:text="${docter.phone}"></td>
+<!--                    <td th:text="${docter.}"></td>-->
+                    <td th:text="${docter.id}" ></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
