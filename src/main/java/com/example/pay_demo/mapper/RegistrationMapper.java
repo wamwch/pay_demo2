@@ -1,5 +1,6 @@
 package com.example.pay_demo.mapper;
 
+import com.example.pay_demo.entity.DocterDTO;
 import com.example.pay_demo.entity.Registration;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -50,4 +51,10 @@ public interface RegistrationMapper {
 //    public List<Registration> findRegistration(String id,String openid,String name,String sex,
 //                                               String docterId,String docterSubjectId,String age,String status,String isComment);
 
+    @Select("<script> " +
+            "SELECT count(r.id) amount,docter_name docterName ,d.phone  " +
+            "FROM registration r left join docter d on " +
+            "d.id=r.docter_id GROUP BY r.docter_id ORDER BY amount DESC LIMIT 3;" +
+            " </script> ")
+    public List<DocterDTO> findDocterGroupBySubject();
 }
