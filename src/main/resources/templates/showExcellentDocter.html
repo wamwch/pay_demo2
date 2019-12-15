@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>优秀医生</title>   <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="row">
+        <br>
+        <div class="col-md-12">
+            <table class="table table-hover" >
+                <tr>
+                    <th>姓名</th>
+                    <th>电话</th>
+                    <th>看病数量</th>
+
+                </tr>
+                <tr th:each="docter:${docters}"  >
+                    <td th:text="${docter.docterName}"></td>
+                    <td th:text="${docter.phone}"></td>
+<!--                    <td th:text="${docter.}"></td>-->
+                    <td th:text="${docter.amount }" ></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
