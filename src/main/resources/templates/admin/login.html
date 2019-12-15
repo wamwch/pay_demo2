@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>后台系统登录</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <script typet="text/javascript" src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+</head>
+<style>
+    body{
+        background-color: blanchedalmond;
+    }
+    .login{
+        margin:300px auto  auto auto;
+
+        width:550px;
+        height: 300px;
+        border: 1px solid red;
+    }
+    .btn{
+        margin-left: 65px;
+    }
+
+</style>
+<body>
+<div class="container">
+    <form class="form-control login">
+        <div class="form-control">
+        <div class="input-group">
+            <span class="input-group-addon" >用户名：</span>
+            <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1" id="acount">
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon" >密&nbsp&nbsp&nbsp码：</span>
+            <input type="password" class="form-control" placeholder="password" aria-describedby="basic-addon1" id="password">
+        </div>
+            <div class="btn">
+            <input type="reset"  value="重置" class="btn btn-default navbar-btn"/>
+                <button  id="sumbit" class="btn btn-default navbar-btn">登录</button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+<script>
+    $('#sumbit').click(function(){
+        var username = $('#acount').val();
+        var  pwd = $('#password').val();
+        $.ajax({
+            url:'http://localhost:8099/shopping/admin/checkLogin',
+            type: 'post',
+            data: {
+                acount:username,
+                password:pwd
+            },
+            success:function(T){
+                alert(T.msg)
+                console.log(T);
+                window.location.href='http://www.baidu.com';
+            },
+            error: function () {
+                window.location.href='http://www.vvvdj.com';
+            }
+
+        })
+
+
+
+    })
+
+</script>
+</html>
