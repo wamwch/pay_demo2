@@ -1,67 +1,16 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>挂号页面</title>
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script>
-
-        function change() {
-            var options=$("#subject option:selected");
-            // alert(options.val());
-            var xmlhttp;
-            if (window.XMLHttpRequest)
-            {
-                // IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
-                xmlhttp=new XMLHttpRequest();
-            }
-            else
-            {
-                // IE6, IE5 浏览器执行代码
-                xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-            }
-            xmlhttp.onreadystatechange=function()
-            {
-                if (xmlhttp.readyState==4 && xmlhttp.status==200)
-                {
-                    var docters=eval('(' + xmlhttp.responseText + ')');
-
-                    var docterSubjectId=$("#docterSubjectId");
-                    docterSubjectId.empty();
-                    for (var i=0;i<docters.length;i++)
-                    {
-                        // alert("显示"+docters[i].docterName);
-                        var option=document.createElement("option");
-                        option.setAttribute("value",docters[i].id);
-                        // option.setAttribute("selected",true);
-                        var span=document.createElement("span");
-                        // span.setAttribute("value",docters[i].docterName);
-                        span.innerText=docters[i].docterName;
-                        option.append(span);
-                        docterSubjectId.append(option);
-                        document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
-
-                    }
-                    if (docters.length>0) {
-                        $("#docterSubjectId option").get(0).setAttribute("selected");
-                    }
-                }
-
-
-            }
-            xmlhttp.open("GET","/shopping/subject/findDocterBySubject?id="+options.val(),true);
-            xmlhttp.send();
-        }
-    </script>
 
 </head>
 <body>
-    <div id="myDiv"></div>
     <div class="container">
-        <br>
-        <form class="form-horizontal" action="/shopping/registration/insertRegistration" role="form">
+        <form class="form-horizontal" action="/registration/insertRegistration" role="form">
             <div class="form-group">
                 <label for="name" class="col-sm-2 control-label">姓名：</label>
                 <div class="col-sm-10">
@@ -84,32 +33,22 @@
                 </div>
             </div>
             <div class="form-group ">
-                <label for="age" class="col-sm-2 control-label">年龄：</label>
-                <div class="col-sm-10">
-                    <input type="number" class="form-control" name="age" id="age" placeholder="请输入患者年龄">
-                </div>
-            </div>
-            <div class="form-group ">
-                <label for="subject" class="col-sm-2 control-label">科室：</label>
-                <div class="col-sm-10">
-                    <select  id="subject" onchange="change()" name="subject" class="form-control ">
-                        <option th:each="subject:${subjects}" th:value="${subject.id}">
-                            <span th:text="${subject.subjectName}" />
-                        </option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group ">
                 <label for="docterSubjectId" class="col-sm-2 control-label">医生：</label>
                 <div class="col-sm-10">
                     <select id="docterSubjectId" name="docterSubjectId" class="form-control ">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
                     </select>
                 </div>
+
             </div>
             <div class="form-group">
                 <label for="name2" class="col-sm-2 control-label">病症描述:</label>
                 <div class="col-sm-10">
-                    <textarea class="form-control col-sm-10" name="description" id="name2" rows="3"></textarea>
+                    <textarea class="form-control col-sm-10" id="name2" rows="3"></textarea>
                 </div>
 
             </div>
@@ -120,6 +59,7 @@
             </div>
         </form>
     </div>
+
 
 </body>
 </html>
