@@ -4,6 +4,7 @@ import com.example.pay_demo.entity.Registration;
 import com.example.pay_demo.service.RegistrationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -19,6 +20,8 @@ public class RegistrationController {
     @RequestMapping("insertRegistration")
     @ResponseBody
     public int insertRegistration(Registration registration){
+        registration.setStatus("0");
+        registration.setIsComment("0");
         System.out.println(registration.toString());
         return registrationService.insertRegistration(registration);
     }
@@ -27,7 +30,9 @@ public class RegistrationController {
         return registrationService.updateRegistration(registration);
     }
 
-    public List<Registration> findRegistration(Registration registration){
-        return registrationService.findRegistration(registration);
+    @RequestMapping("findRegistration")
+    public String findRegistration(Registration registration, Model model){
+        model.addAttribute("registrations",registrationService.findRegistration(registration));
+        return "showRegistration";
     }
 }

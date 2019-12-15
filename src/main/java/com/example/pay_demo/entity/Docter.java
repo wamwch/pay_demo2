@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class Docter {
-    private int id;
+    private String id;
 
     private String docterName;
 
