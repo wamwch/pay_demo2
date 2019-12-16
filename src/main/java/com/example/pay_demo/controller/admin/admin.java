@@ -76,17 +76,11 @@ public class admin {
     @RequestMapping("doctor")
     public ModelAndView doctorPage(ModelAndView modelAndView){
         List<DoctorInfoVO>  doctors = doctorService.findAllDoctors();
-        if(doctors == null){
-            System.out.println("查询为空");
+        if(doctors == null)
             return  null;
-
-        }
         modelAndView.addObject("doctors",doctors);
         modelAndView.setViewName("admin/doctorInfo");
 
-        for (DoctorInfoVO vo : doctors){
-            System.out.println("doctorName = " +vo.getName());
-        }
 
         return  modelAndView;
     }
