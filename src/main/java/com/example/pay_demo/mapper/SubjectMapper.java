@@ -23,6 +23,15 @@ public interface SubjectMapper {
     public List<DocterSubjectDTO> findDocterBySubject(Subject subject);
 
     @Select("<script> " +
+            "SELECT ds.id id, subject_id subjectId,d.id docterId, docter_name docterName,phone  " +
+            "FROM docter_subject ds left join docter d on d.id=ds.doctor_id  " +
+            " <where>  1=1" +
+            " <if test=\"id != null\"> and ds.id = #{id}</if> " +
+            " </where> " +
+            " </script> ")
+    public List<DocterSubjectDTO> findDocterBySubjectDocter(DocterSubjectDTO docterSubjectDTO);
+
+    @Select("<script> " +
             "SELECT  * FROM subject " +
             " <where>  1=1" +
             " <if test=\"id != null\"> and id = #{id}</if> " +
