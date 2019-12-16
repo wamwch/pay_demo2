@@ -4,13 +4,13 @@ import lombok.Data;
 
 @Data
 public class Comment {
-    private int id;
+    private String id;
 
     private String comment;
 
-    private int docterId;
+    private String docterId;
 
-    private int docterSubjectId;
+    private String docterSubjectId;
 
-    private int registrationId;
+    private String registrationId;
 }

@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonAlias;
 import com.github.wxpay.sdk.WXPayConstants;
 import com.github.wxpay.sdk.WXPayUtil;
 import com.sun.deploy.net.HttpUtils;
+import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @Controller
@@ -24,8 +27,8 @@ import java.io.IOException;
 public class WxLoginController {
 
     String uri="https://api.mch.weixin.qq.com/pay/unifiedorder";
-    String secret="";  //此处需填
-    String appid="";  //此处需填
+    String secret="a2cd1690887ac618fc359aa9de926fec";  //此处需填
+    String appid="wx69e12bb64d5a17a6";  //此处需填
 
     /**
      * 微信入口，获得用户的code进行跳转
@@ -49,13 +52,15 @@ public class WxLoginController {
      * @return 页面跳转
      */
     @GetMapping(value = "pay/apiTest")
-    public String redirectToIndexPage(@RequestParam("code") String code) throws IOException {
+    public String redirectToIndexPage(@RequestParam("code") String code , HttpSession session) throws IOException {
         //返回需要跳转的页面锚点
         System.out.println("code:"+code);
         WxEntity wxEntity=getAccessToken(code);  //获得用户的相关信息
 
         System.out.println("openid:"+wxEntity.getOpenid());
-        return "redirect:/api/client/pay/unifiedOrder?openid="+wxEntity.getOpenid();  //跳转到支付页面（由于没有写具体的下单流程，只是）
+        session.setAttribute("openid",wxEntity.getOpenid());
+//        return "redirect:/api/client/pay/unifiedOrder?openid="+wxEntity.getOpenid();  //跳转到支付页面（由于没有写具体的下单流程，只是）
+        return "redirect:/user/toUserIndex";
     }
 
     /**

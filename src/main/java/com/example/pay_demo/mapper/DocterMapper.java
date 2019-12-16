@@ -23,14 +23,14 @@ public interface DocterMapper {
 
     @Select("<script> " +
             "SELECT d.id docterId, d.phone phone , d.docter_name docterName , " +
-            "ds.id id, ds.subject_id  subjectId,s.subjectName subjectName " +
+            "ds.id id, ds.subject_id  subjectId,s.subject_name subjectName " +
             "FROM docter d " +
-            "left join docter_subject ds on ds.doctor_id=d.id " +
+            "left join docter_subject ds on ds.docter_id=d.id " +
             "left join subject s on ds.subject_id=s.id " +
             " <where>  1=1" +
             " <if test=\"docterName != null\"> and docter_name = #{docterName}</if> " +
             " <if test=\"subjectId != null\"> and ds.subject_id = #{subjectId}</if> " +
-            " <if test=\"docterId != null\"> and ds.doctor_id = #{docterId}</if> " +
+            " <if test=\"docterId != null\"> and ds.docter_id = #{docterId}</if> " +
             " </where> " +
             " </script> ")
     List<DocterSubjectDTO> findDocterAndSubject(DocterSubjectDTO docterSubjectDTO);

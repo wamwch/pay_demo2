@@ -15,7 +15,7 @@ public interface SubjectMapper {
 
     @Select("<script> " +
             "SELECT ds.id id, subject_id subjectId, docter_name docterName,phone  " +
-            "FROM docter_subject ds left join docter d on d.id=ds.doctor_id  " +
+            "FROM docter_subject ds left join docter d on d.id=ds.docter_id  " +
             " <where>  1=1" +
             " <if test=\"id != null\"> and ds.subject_id = #{id}</if> " +
             " </where> " +
@@ -24,7 +24,7 @@ public interface SubjectMapper {
 
     @Select("<script> " +
             "SELECT ds.id id, subject_id subjectId,d.id docterId, docter_name docterName,phone  " +
-            "FROM docter_subject ds left join docter d on d.id=ds.doctor_id  " +
+            "FROM docter_subject ds left join docter d on d.id=ds.docter_id  " +
             " <where>  1=1" +
             " <if test=\"id != null\"> and ds.id = #{id}</if> " +
             " </where> " +

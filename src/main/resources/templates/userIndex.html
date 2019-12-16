@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>xx医院</title>
@@ -11,6 +11,9 @@
 </head>
 <body>
     <div class="container">
+        <h1>个人
+            <span th:text="${session.openid}" />
+        </h1>
         <h3><a href="/shopping/user/toRegistration"><p class="bg-primary">挂号</p></a></h3>
         <h3><a href="/shopping/docter/excellentDoctor"><p class="bg-success">优秀医生</p></a></h3>
         <h3>
@@ -20,8 +23,13 @@
         </h3>
 
         <h3>
-            <a href="/shopping/registration/findRegistration?openid=15234">
+            <a href="/shopping/registration/findMyRegistration">
                 <p class="bg-info">我的挂号</p>
+            </a>
+        </h3>
+        <h3>
+            <a href="/shopping/index?username=or6Jb1ZOLLdq5Dt3F3AMoSZ94b68">
+                <p class="bg-info">在线咨询</p>
             </a>
         </h3>
     </div>
