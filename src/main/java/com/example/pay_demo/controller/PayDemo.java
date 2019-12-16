@@ -1,9 +1,12 @@
 package com.example.pay_demo.controller;
 
 import com.example.pay_demo.entity.PayEntity;
+import com.example.pay_demo.entity.Registration;
+import com.example.pay_demo.service.RegistrationService;
 import com.github.wxpay.sdk.WXPay;
 import com.github.wxpay.sdk.WXPayConstants;
 import com.github.wxpay.sdk.WXPayUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,12 +14,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
 @Controller
 @RequestMapping(value = "/api/client/pay/")
 public class PayDemo {
+
+    @Autowired
+    RegistrationService registrationService;
+
     String uri="https://api.mch.weixin.qq.com/pay/unifiedorder";
     String nonce_str,openid;
     String sign;
@@ -24,12 +32,13 @@ public class PayDemo {
     String out_trade_no;
     String spbill_create_ip="";
     String signType=WXPayConstants.MD5;
-    String key="";  //此处需填
+    String key="qwertyuiop428532QWERTYUIOP428532";  //此处需填
     String trade_type="JSAPI";
-    String appid="";  //此处需填
-    String mch_id="";  //此处需填
     String notify_url="http://zhst.hrzhst.com/shopping/api/client/pay/wxPayNotify";
     int total_fee=1;
+    String secret="a2cd1690887ac618fc359aa9de926fec";  //此处需填
+    String appid="wx69e12bb64d5a17a6";  //此处需填
+    String mch_id="1502825551";
 
 
     /**
@@ -50,6 +59,15 @@ public class PayDemo {
         System.out.println(xml);
         map=WXPayUtil.xmlToMap(xml);
         System.out.println("支付结果回调："+map.toString());
+        String orderId=map.get("out_trade_no");
+        System.out.println("订单号："+orderId);
+
+        Registration registration=new Registration();
+        registration.setOrderId(orderId);
+        registration.setStatus("0");
+        registrationService.updateRegistration(registration);
+        System.out.println("修改订单状态");
+
         PayEntity payEntity=new PayEntity( appid,  mch_id,  nonce_str,  sign,  body,
                 out_trade_no,  total_fee,  spbill_create_ip,  notify_url,  openid,key);
         payEntity.setTrade_type("JSAPI");
@@ -75,11 +93,16 @@ public class PayDemo {
      * @throws Exception
      */
     @GetMapping(value = "unifiedOrder")
-    public String demo(Model model,String openid,HttpServletRequest httpServletRequest) throws Exception {
+    public String demo(Model model,String orderId, int money, HttpServletRequest httpServletRequest, HttpSession session) throws Exception {
 
+        String openid=session.getAttribute("openid").toString();
+        System.out.println(openid);
+        System.out.println(money);
+        total_fee=money;
         spbill_create_ip=getIpAddr(httpServletRequest);
         nonce_str=WXPayUtil.generateNonceStr();  //
-        out_trade_no=String.valueOf(System.currentTimeMillis());  //个人系统订单号
+//        out_trade_no=String.valueOf(System.currentTimeMillis());  //个人系统订单号
+        out_trade_no=orderId;
         System.out.println("系统订单号："+out_trade_no);
         body="测试123ss";
         Map<String,String> map=new HashMap<>();

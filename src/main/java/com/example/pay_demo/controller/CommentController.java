@@ -1,6 +1,7 @@
 package com.example.pay_demo.controller;
 
 import com.example.pay_demo.entity.Comment;
+import com.example.pay_demo.entity.Registration;
 import com.example.pay_demo.service.CommentService;
 import com.example.pay_demo.service.RegistrationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +19,22 @@ public class CommentController {
     @Autowired
     CommentService commentService;
 
+    @Autowired
+    RegistrationService registrationService;
+
     @RequestMapping("addComment")
     public String addComment(Comment comment,Model model){
         System.out.println(comment.toString());
-        boolean b=commentService.insertComment(comment);
+        List<Comment> comments=commentService.findComment(comment);
+        if (comments.isEmpty()){
+            boolean b=commentService.insertComment(comment);
+            Registration registration=new Registration();
+            registration.setIsComment("1");
+            registration.setId(comment.getRegistrationId());
+            registrationService.updateRegistration(registration);
+        }else {
+            commentService.updateComment(comment);
+        }
         model.addAttribute("comment",comment);
         return "showComment";
     }

@@ -26,10 +26,12 @@ public class RegistrationController {
     SubjectService subjectService;
 
     @RequestMapping("insertRegistration")
-    @ResponseBody
     public String insertRegistration(Registration registration){
         registration.setStatus("2");
         registration.setIsComment("0");
+        long orderId=System.currentTimeMillis();
+        registration.setOrderId(String.valueOf(orderId));
+        System.out.println("orderId"+orderId);
         System.out.println(registration.toString());
         if (registration.getDocterId()==null){
             DocterSubjectDTO docterSubjectDTO=new DocterSubjectDTO();
@@ -40,7 +42,8 @@ public class RegistrationController {
             }
         }
         registrationService.insertRegistration(registration);
-        return "redirect:/insertRegistration/findRegistration";
+//        return "redirect:/registration/findRegistration";
+        return "redirect:/api/client/pay/unifiedOrder?orderId="+orderId+"&money="+1;
     }
 
     public boolean updateRegistration(Registration registration){

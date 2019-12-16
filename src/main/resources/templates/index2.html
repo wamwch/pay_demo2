@@ -8,7 +8,7 @@
     <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js" ></script>
 </head>
 <body>
-<h2>微信公众号支付测试页面-pages/index.jsp修改1</h2>
+<h2>微信公众号支付</h2>
 <pre></pre>
 <button class="btn btn-default base-btn btn-exit" id="payBtn" style="width:94%;margin-left:3%;">点击支付</button>
 
@@ -55,6 +55,7 @@
                 // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。
                 if((res.err_msg).indexOf("ok") >= 0) {
                     alert("支付测试成功！");
+                    // window.location.href=""
                 } else {
                     alert("支付失败！");
                 }

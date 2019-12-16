@@ -12,11 +12,13 @@ public class Registration {
     private String sex;
     private String age;
     private String docterId;
+    private String docterName;
     private String docterSubjectId;
     private String isComment;
     private String status;
     private String description;
     private String phone;
     private Date time;
+    private String orderId;
 
 }
