@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <script typet="text/javascript" src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <br>
+        <form class="form-inline my-2 my-lg-0 col-md-offset-8" method="post" >
+            <label >预约情况查看：</label>
+                <select  id="status"  name="subject" class="form-control " onchange="change()">
+                    <option value="0">
+                        预约中
+                    </option>
+                    <option value="1">
+                        完成预约
+                    </option>
+                </select>
+        </form>
+        <br>
+    </div>
+    <table class="table table-striped" id="tab">
+        <tr>
+            <th>预约编号</th>
+            <th>姓名</th>
+            <th>性别</th>
+            <th>科室</th>
+            <th>预约状态</th>
+            <th>预约时间</th>
+        </tr>
+        <tr  th:each="Reg:${Registration}" class="pre">
+            <td th:text="${Reg.id}"></td>
+            <td th:text="${Reg.name}"></td>
+            <td th:text="${Reg.sex}"></td>
+            <td th:text="${Reg.docterSubjectId}"></td>
+            <td th:if="${Reg.status == '0'}">预约中</td>
+            <td  th:if="${Reg.status =='1'}">完成预约</td>
+            <td th:text="${Reg.time}"></td>
+        </tr>
+    </table>
+</div>
+</body>
+        <script>
+          function change(){
+              var option = $("#status").val();
+              $.ajax({
+                  url:'http://localhost:8099/shopping/admin/selectRegistration',
+                  type:'post',
+                  dataType:'json',
+                  data: {
+                      status:option
+                  },
+                  success:function(data){
+                      $(".pre").remove();
+                      for(var i = 0 ;i<data.length;i++){
+                          if(data[i].status=='1')
+                              var status = '预约完成';
+                          else
+                              var  status = '预约中'
+                         $("#tab").append("<tr class='pre'>" +
+                             "<td>"+data[i].id+"</td>" +
+                             "<td>"+data[i].name+"</td>"+
+                             "<td>"+data[i].sex+"</td>"+
+                             "<td>"+data[i].docterSubjectId+"</td>"+
+                            "<td>"+status+"</td>"+
+                             "<td>"+data[i].time+"</td>"+
+                             "</tr>")
+                      }
+                  },
+                  error:function(){
+                      alert("系统出现异常！！")
+                  }
+
+              })
+
+          }
+        </script>
+</html>

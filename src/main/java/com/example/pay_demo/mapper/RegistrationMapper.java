@@ -48,8 +48,6 @@ public interface RegistrationMapper {
             " </where> " +
             " </script> ")
     public List<Registration> findRegistration(Registration registration);
-//    public List<Registration> findRegistration(String id,String openid,String name,String sex,
-//                                               String docterId,String docterSubjectId,String age,String status,String isComment);
 
     @Select("<script> " +
             "SELECT count(r.id) amount,docter_name docterName ,d.phone  " +
@@ -57,4 +55,16 @@ public interface RegistrationMapper {
             "d.id=r.docter_id GROUP BY r.docter_id ORDER BY amount DESC LIMIT 3;" +
             " </script> ")
     public List<DocterDTO> findDocterGroupBySubject();
+
+
+    //查看所有预约用户
+    @Select("select * from  registration")
+    List<Registration> findAllRegistration();
+
+    //查看不同预约情况的病人
+    @Select("select * from registration  where status = #{status}")
+    List<Registration> findAllByStatus(String status);
+
+
+
 }

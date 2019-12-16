@@ -25,4 +25,14 @@ public class RegistrationServiceImpl implements RegistrationService {
     public List<Registration> findRegistration(Registration registration) {
         return registrationMapper.findRegistration(registration);
     }
+
+    @Override
+    public List<Registration> findAllRegistration() {
+        return registrationMapper.findAllRegistration();
+    }
+
+    @Override
+    public List<Registration> findAllByStatus(String status) {
+        return registrationMapper.findAllByStatus(status);
+    }
 }

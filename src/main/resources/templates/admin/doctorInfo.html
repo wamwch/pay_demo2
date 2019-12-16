@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <script typet="text/javascript" src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <table class="table table-striped">
+        <tr>
+            <th>编号</th>
+            <th>姓名</th>
+            <th>科室</th>
+            <th>联系电话</th>
+            <th>在职情况</th>
+            <th>操作</th>
+        </tr>
+        <tr th:each="DoctorInfoVO:${doctors}">
+            <td th:text="${DoctorInfoVO.id}"></td>
+            <td th:text="${DoctorInfoVO.name}"></td>
+            <td th:text="${DoctorInfoVO.subject}"></td>
+            <td th:text="${DoctorInfoVO.phone}"></td>
+            <td th:if="${DoctorInfoVO.iswork == 0}">在职</td>
+            <td th:if="${DoctorInfoVO.iswork == 1}">离职</td>
+            <td><button class="btn btn-default">更新个人信息</button> </td>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>
