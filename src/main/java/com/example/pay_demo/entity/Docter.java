@@ -9,4 +9,6 @@ public class Docter {
     private String docterName;
 
     private String phone;
+
+    private Integer iswork;
 }

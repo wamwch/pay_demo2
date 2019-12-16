@@ -10,7 +10,6 @@
 
         function change() {
             var options=$("#subject option:selected");
-            // alert(options.val());
             var xmlhttp;
             if (window.XMLHttpRequest)
             {
@@ -32,12 +31,9 @@
                     docterSubjectId.empty();
                     for (var i=0;i<docters.length;i++)
                     {
-                        // alert("显示"+docters[i].docterName);
                         var option=document.createElement("option");
                         option.setAttribute("value",docters[i].id);
-                        // option.setAttribute("selected",true);
                         var span=document.createElement("span");
-                        // span.setAttribute("value",docters[i].docterName);
                         span.innerText=docters[i].docterName;
                         option.append(span);
                         docterSubjectId.append(option);

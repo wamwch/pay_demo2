@@ -13,4 +13,8 @@ public interface RegistrationService {
 
     public List<Registration> findRegistration(Registration registration);
 
+    List<Registration> findAllRegistration ();
+
+    List<Registration> findAllByStatus(String status);
+
 }

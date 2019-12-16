@@ -2,6 +2,8 @@ package com.example.pay_demo.entity;
 
 import lombok.Data;
 
+import java.sql.Date;
+
 @Data
 public class Registration {
     private String id ;
@@ -15,5 +17,6 @@ public class Registration {
     private String status;
     private String description;
     private String phone;
+    private Date time;
 
 }
