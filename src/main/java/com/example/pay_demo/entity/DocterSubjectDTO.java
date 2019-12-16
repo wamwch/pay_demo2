@@ -4,8 +4,10 @@ import lombok.Data;
 
 @Data
 public class DocterSubjectDTO {
-    private int id;
-    private int subjectId;
+    private String id;
+    private String subjectId;
+    private String subjectName;
+    private String docterId;
     private String docterName;
     private String phone;
 

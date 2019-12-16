@@ -9,4 +9,6 @@ public interface SubjectService {
     public List<Subject> findSubject(Subject subject);
 
     public List<DocterSubjectDTO> findDocterBySubject(Subject subject);
+
+    public List<DocterSubjectDTO> findDocterBySubjectDocter(DocterSubjectDTO docterSubjectDTO);
 }

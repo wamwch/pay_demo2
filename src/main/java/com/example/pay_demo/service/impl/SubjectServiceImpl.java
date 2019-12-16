@@ -22,4 +22,9 @@ public class SubjectServiceImpl implements SubjectService {
     public List<DocterSubjectDTO> findDocterBySubject(Subject subject) {
         return subjectMapper.findDocterBySubject(subject);
     }
+
+    @Override
+    public List<DocterSubjectDTO> findDocterBySubjectDocter(DocterSubjectDTO docterSubjectDTO) {
+        return subjectMapper.findDocterBySubjectDocter(docterSubjectDTO);
+    }
 }

@@ -2,6 +2,7 @@ package com.example.pay_demo.controller;
 
 import com.example.pay_demo.entity.Docter;
 import com.example.pay_demo.entity.DocterDTO;
+import com.example.pay_demo.entity.DocterSubjectDTO;
 import com.example.pay_demo.service.DocterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,8 +19,13 @@ public class DocterController {
     DocterService docterService;
 
     @RequestMapping("toDocter")
-    public String toDocter(Docter docter, Model model){
-        List<Docter> docters=docterService.findDocter(docter.getDocterName());
+    public String toDocter(DocterSubjectDTO docterSubjectDTO, Model model){
+//        List<Docter> docters=docterService.findDocter(docter.getDocterName());
+        List<DocterSubjectDTO> docters=docterService.findDocterAndSubject(docterSubjectDTO);
+        if (docterSubjectDTO!=null ||!docterSubjectDTO.getDocterName().equals(""))
+        {
+            model.addAttribute("docterName",docterSubjectDTO.getDocterName());
+        }
         model.addAttribute("docters",docters);
         return "showDocter";
     }
