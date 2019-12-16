@@ -27,7 +27,7 @@ public class RegistrationController {
 
     @RequestMapping("insertRegistration")
     @ResponseBody
-    public int insertRegistration(Registration registration){
+    public String insertRegistration(Registration registration){
         registration.setStatus("2");
         registration.setIsComment("0");
         System.out.println(registration.toString());
@@ -39,7 +39,8 @@ public class RegistrationController {
                 registration.setDocterId(docterBySubjectDocter.get(0).getDocterId());
             }
         }
-        return registrationService.insertRegistration(registration);
+        registrationService.insertRegistration(registration);
+        return "redirect:/insertRegistration/findRegistration";
     }
 
     public boolean updateRegistration(Registration registration){
