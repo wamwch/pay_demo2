@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -27,7 +28,7 @@ public class RegistrationController {
     @RequestMapping("insertRegistration")
     @ResponseBody
     public int insertRegistration(Registration registration){
-        registration.setStatus("0");
+        registration.setStatus("2");
         registration.setIsComment("0");
         System.out.println(registration.toString());
         if (registration.getDocterId()==null){
@@ -46,7 +47,19 @@ public class RegistrationController {
     }
 
     @RequestMapping("findRegistration")
-    public String findRegistration(Registration registration, Model model){
+    public String findRegistration(Registration registration, Model model, HttpSession session){
+        String openid=session.getAttribute("openid").toString();
+        System.out.println(openid);
+
+        model.addAttribute("registrations",registrationService.findRegistration(registration));
+        return "showRegistration";
+    }
+
+    @RequestMapping("findMyRegistration")
+    public String findMyRegistration(Registration registration, Model model, HttpSession session){
+        String openid=session.getAttribute("openid").toString();
+        System.out.println(openid);
+        registration.setOpenid(openid);
         model.addAttribute("registrations",registrationService.findRegistration(registration));
         return "showRegistration";
     }

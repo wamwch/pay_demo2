@@ -34,9 +34,20 @@
                     <td th:text="${registration.age}" ></td>
 <!--                    <td th:text="${registration.docterSubjectId}" ></td>-->
                     <td th:text="${registration.docterId}" ></td>
-                    <td th:text="${registration.status}" ></td>
+                    <td >
+                        <span th:if="${registration.status=='0'}">已挂号</span>
+                        <span th:if="${registration.status=='1'}">看病完成</span>
+                        <span th:if="${registration.status=='2'}">待付款</span>
+                    </td>
                     <td th:text="${registration.description}" ></td>
-                    <td th:text="${registration.isComment}" ></td>
+                    <td >
+                        <span th:if="${registration.isComment=='0'}">
+                            <a th:href="@{'/comment/toComment?registrationId='+${registration.id}}" class="btn btn-success">查看评论</a>
+                        </span>
+                        <span th:if="${registration.isComment=='1'}">
+                            <a th:href="@{'/comment/toComment?registrationId='+${registration.id}}"  class="btn btn-success">评论</a>
+                        </span>
+                    </td>
                 </tr>
             </table>
         </div>
