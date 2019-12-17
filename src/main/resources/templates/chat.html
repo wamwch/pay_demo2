@@ -1,20 +1,65 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>WebSocket简单聊天室</title>
+    <title>咨询</title>
     <meta charset="utf-8" name="viewport" content="width=device-width">
     <link rel="stylesheet" th:href="@{/webjars/mdui/dist/css/mdui.css}">
     <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
     <script th:src="@{/webjars/mdui/dist/js/mdui.js}"></script>
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.15.0/umd/popper.min.js" integrity="sha384-L2pyEeut/H3mtgCBaUNw7KWzp5n9+4pDQiExs933/5QfaTh8YStYFFkOzSoXjlTb" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <style>
+
+    </style>
+
 </head>
 <body class="mdui-theme-primary-indigo mdui-theme-accent-pink">
+<div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" >
+        <a class="navbar-brand" href="header.html">首页</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="http://localhost:8099/shopping/admin/doctor">医生信息 <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">评论管理</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="http://localhost:8099/shopping/index?username=luojianfeng">咨询回复</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        预约情况
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="http://localhost:8099/shopping/admin/showAllRegistration">所有预约</a>
+                        <a class="dropdown-item" href="http://localhost:8099/shopping/admin/selectRegistration?status=1">已完成预约</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="http://localhost:8099/shopping/admin/selectRegistration?status=2">预约中</a>
+                    </div>
+                </li>
+
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
 <div class="mdui-container">
     <div class="mdui-toolbar mdui-color-theme">
         <a class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">menu</i></a>
-        <span class="mdui-typo-title">简单聊天室</span>
+        <span class="mdui-typo-title">咨询</span>
         <div class="mdui-toolbar-spacer"></div>
-        <a class="mdui-btn mdui-btn-icon" href="https://www.jianshu.com/p/964370d9374e" target="_blank"><i
+        <a class="mdui-btn mdui-btn-icon" href="#" target="_blank"><i
                 class="mdui-icon material-icons">search</i></a>
         <a class="mdui-btn mdui-btn-icon" th:href="@{/}"><i
                 class="mdui-icon material-icons">exit_to_app</i></a>
@@ -25,13 +70,19 @@
 <div>
     <div class="mdui-container container_text">
 
+<!--        滚动框-->
+
+
+        <div class="message-container msg" data-spy="scroll" data-target="#navbar-example2" data-offset="0">
+        </div>
+
         <div class="mdui-row">
             <div class="mdui-col-xs-12 mdui-col-sm-6">
                 <div class="mdui-col-xs-12 mdui-col-sm-10">
-                    <div class="mdui-textfield-floating-label" style="margin-top:15px">
-                        <i class="mdui-icon material-icons">欢迎：</i>
-                        <i class="mdui-icon" id="username" th:text="${username}"></i>
-                    </div>
+<!--                    <div class="mdui-textfield-floating-label" style="margin-top:15px">-->
+<!--                        <i class="mdui-icon material-icons">欢迎：</i>-->
+<!--                        <i class="mdui-icon" id="username" th:text="${username}"></i>-->
+<!--                    </div>-->
                 </div>
                 <div class="mdui-col-xs-12 mdui-col-sm-10">
                     <div class="mdui-textfield mdui-textfield-floating-label">
@@ -50,22 +101,6 @@
                 </div>
             </div>
 
-            <div class="mdui-col-xs-6 mdui-col-sm-5" style="padding:10px 0">
-                <div class="mdui-chip">
-                    <span class="mdui-chip-icon mdui-color-blue">
-                        <i class="mdui-icon material-icons">&#xe420;</i></span>
-                    <span class="mdui-chip-title">聊天内容</span>
-                </div>
-
-                <div class="mdui-chip">
-                    <span class="mdui-chip-icon mdui-color-blue">
-                        <i class="mdui-icon material-icons">face</i></span>
-                    <span class="mdui-chip-title">在线人数</span>
-                    <span class="mdui-chip-title chat-num">0</span>
-                </div>
-                <div class="message-container">
-
-                </div>
             </div>
 
         </div>
@@ -99,12 +134,12 @@
             //获取服务端消息
             var message = JSON.parse(event.data) || {};
             var $messageContainer = $('.message-container');
-            //喉咙发炎
+
             if (message.type === 'SPEAK') {
                 $messageContainer.append(
-                    '<div class="mdui-card" style="margin: 10px 0;">' +
+                    '<div class="mdui-card msgServer" style="margin: 10px 0;">' +
                     '<div class="mdui-card-primary">' +
-                    '<div class="mdui-card-content message-content">' + message.username + "：" + message.msg + '</div>' +
+                    '<div class="mdui-card-content message-content"> <span class="glyphicon glyphicon-user"></span>:'  + message.msg + '</div>' +
                     '</div></div>');
             }
             $('.chat-num').text(message.onlineCount);

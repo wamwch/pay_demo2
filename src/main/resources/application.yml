@@ -8,7 +8,8 @@ spring:
     password: zhst1234
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://172.16.3.186:3307/hostipital?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
-
+  thymeleaf:
+    cache: false
   mvc:
     static-path-pattern: /**
 

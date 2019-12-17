@@ -35,13 +35,6 @@ public interface DocterMapper {
             " </script> ")
     List<DocterSubjectDTO> findDocterAndSubject(DocterSubjectDTO docterSubjectDTO);
 
-    @Select("select a.id id,a.docter_name name,a.phone phone,a.iswork iswork,c.subjectName subject from  docter a ,docter_subject b,subject c where a.id=b.doctor_id and b.id= c.id")
-//    @Results({
-//            @Result(column = "a.id" ,property = "id"),
-//            @Result(column = "a.docter_name",property = "name"),
-//            @Result(column = "a.phone",property = "phone"),
-//            @Result(column = "a.iswork",property = "iswork"),
-//            @Result(column = "c.subjectName",property = "subject")
-//    })
+    @Select("select a.id id,a.docter_name name,a.phone phone,a.iswork iswork,c.subject_name subject from  docter a ,docter_subject b,subject c where a.id=b.docter_id and b.id= c.id")
     List<DoctorInfoVO> findAlldoctors();
 }

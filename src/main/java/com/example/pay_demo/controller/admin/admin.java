@@ -12,7 +12,6 @@ import com.example.pay_demo.util.ResultVOUtils;
 import com.example.pay_demo.util.enums.ResultEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -48,20 +47,34 @@ public class admin {
     }
 
     @PostMapping("checkLogin")
-    public ResultVO checkLogin(@RequestParam("acount")String acount, @RequestParam("password") String password, HttpSession session) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+    public ModelAndView checkLogin(@RequestParam("acount")String acount, @RequestParam("password") String password, HttpSession session) throws UnsupportedEncodingException, NoSuchAlgorithmException {
         Admin user = adminService.findUserByAcount(acount);
+        System.out.println("请求过来。。。");
+        ModelAndView mv = new ModelAndView();
         if(user == null){
-            return ResultVOUtils.error(ResultEnum.USER_NOT_EXISTS.getCode(),ResultEnum.USER_NOT_EXISTS.getMsg());
-        }
+//            return ResultVOUtils.error(ResultEnum.USER_NOT_EXISTS.getCode(),ResultEnum.USER_NOT_EXISTS.getMsg());
+            mv.setViewName("admin/login");
+            mv.addObject("msg","用户不存在");
+            mv.addObject("success",false);
+            return  mv;
+       }
         //系统查询出来的密码
         String pwd = user.getPassword();
         //用户输入的密码
         String  pwd1 = Md5Utils.EncoderByMd5(password);
 
-        if (Md5Utils.checkpassword(pwd1,pwd))
-            return ResultVOUtils.error(ResultEnum.USER_PWD_ERROR.getCode(),ResultEnum.USER_PWD_ERROR.getMsg());
+        if (Md5Utils.checkpassword(pwd1,pwd)){
+            mv.setViewName("admin/login");
+          mv.addObject("msg","密码错误");
+            mv.addObject("success",false);
+          return  mv;
+        }
         session.setAttribute("user",acount);
-        return ResultVOUtils.success(ResultEnum.USER_LOGIN_SUCCESS.getCode(),ResultEnum.USER_LOGIN_SUCCESS.getMsg());
+        mv.setViewName("admin/header");
+        mv.addObject("success",true);
+        mv.addObject("msg","");
+
+        return  mv;
 
     }
 
