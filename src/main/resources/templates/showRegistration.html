@@ -33,7 +33,7 @@
                     <td th:text="${registration.sex}"></td>
                     <td th:text="${registration.age}" ></td>
 <!--                    <td th:text="${registration.docterSubjectId}" ></td>-->
-                    <td th:text="${registration.docterId}" ></td>
+                    <td th:text="${registration.docterName}" ></td>
                     <td >
                         <span th:if="${registration.status=='0'}">已挂号</span>
                         <span th:if="${registration.status=='1'}">看病完成</span>
@@ -42,10 +42,10 @@
                     <td th:text="${registration.description}" ></td>
                     <td >
                         <span th:if="${registration.isComment=='0'}">
-                            <a th:href="@{'/comment/toComment?registrationId='+${registration.id}}" class="btn btn-success">查看评论</a>
+                            <a th:href="@{'/comment/toComment?registrationId='+${registration.id}}" class="btn btn-success">评论</a>
                         </span>
                         <span th:if="${registration.isComment=='1'}">
-                            <a th:href="@{'/comment/toComment?registrationId='+${registration.id}}"  class="btn btn-success">评论</a>
+                            <a th:href="@{'/comment/toComment?registrationId='+${registration.id}}"  class="btn btn-success">查看评论</a>
                         </span>
                     </td>
                 </tr>

@@ -13,8 +13,8 @@ import java.util.List;
 public interface RegistrationMapper {
 
     @Insert("insert into registration(openid,name,sex,age,docter_id,docter_subject_id," +
-            "is_comment,status,description,phone) values (#{openid},#{name}," +
-            "#{sex},#{age},#{docterId},#{docterSubjectId},#{isComment},#{status},#{description},#{phone})")
+            "is_comment,status,description,phone ,time,order_id) values (#{openid},#{name}," +
+            "#{sex},#{age},#{docterId},#{docterSubjectId},#{isComment},#{status},#{description},#{phone},#{time},#{orderId})")
     public int insertRegistration(Registration registration);
 
     @Update("<script> " +
@@ -29,12 +29,21 @@ public interface RegistrationMapper {
             " <if test=\"isComment != null\">  is_comment = #{isComment}</if> " +
             " <if test=\"status != null\">  status = #{status}</if> " +
             " </set> " +
+            " <where>  " +
+            " <if test=\"id != null\"> and id = #{id}</if> " +
+            " <if test=\"openid != null\"> and openid = #{openid}</if> " +
+            " <if test=\"docterId != null\"> and docter_id = #{docterId}</if> " +
+            " <if test=\"docterSubjectId != null\"> and docter_subject_id = #{docterSubjectId}</if> " +
+            " <if test=\"orderId != null\"> and order_id = #{orderId}</if> " +
+            " </where> " +
+
             " </script> ")
     public boolean updateRegistration(Registration registration);
 
     @Select("<script> " +
-            "SELECT *" +
-            "FROM registration " +
+            "SELECT r.id id,r.openid openid,r.name name,r.sex,r.age, r.docter_id docterId,d.docter_name docterName " +
+            ",r.docter_subject_id docterSubjectId ,r.is_comment isComment ,r.status status, r.description description, r.phone phone "+
+            "FROM registration r left join docter d on d.id=r.docter_id" +
             " <where>  1=1" +
             " <if test=\"id != null\"> and id = #{id}</if> " +
             " <if test=\"openid != null\"> and openid = #{openid}</if> " +

@@ -9,4 +9,6 @@ public interface CommentService {
     boolean insertComment(Comment comment);
 
     public List<Comment> findComment(Comment comment);
+
+    public boolean updateComment(Comment comment);
 }

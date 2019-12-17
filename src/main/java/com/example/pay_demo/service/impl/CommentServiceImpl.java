@@ -35,4 +35,8 @@ public class CommentServiceImpl implements CommentService {
     public List<Comment> findComment(Comment comment){
         return commentMapper.findComment(comment);
     }
+
+    public boolean updateComment(Comment comment){
+        return commentMapper.updateComment(comment);
+    }
 }
